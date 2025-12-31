@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+git submodule update --init --recursive
 echo Cloning AnyKernel
 git clone https://github.com/provasish/AnyKernel3.git anykernel
 

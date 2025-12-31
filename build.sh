@@ -40,7 +40,7 @@ cd anykernel || exit 1
     cp ../out/arch/arm64/boot/Image .
     cp ../out/arch/arm64/boot/dtbo.img .
     cp ../out/arch/arm64/boot/dtb .
-    zip -r9 El-Diablo-AOSP-${DT}.zip *
+    zip -r9 Droidspaces-El-Diablo-AOSP-${DT}.zip *
     rm Image dtbo.img dtb
     cd ..
 }

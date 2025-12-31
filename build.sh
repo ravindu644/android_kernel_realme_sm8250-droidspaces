@@ -25,9 +25,11 @@ TARGET_KERNEL_MAKE_ENV+="CC=$(pwd)/tc/clang/bin/clang"
 compile() {
 echo compiling kernel...
 
-make O=${OUT_DIR} ${TARGET_KERNEL_MAKE_ENV} LLVM_IAS=1 HOSTLDFLAGS="${TARGET_LINCLUDES}" ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip LLVM_IAS=1 $config
+BUILD_OPTIONS=(O=${OUT_DIR} ${TARGET_KERNEL_MAKE_ENV} LLVM_IAS=1 HOSTLDFLAGS="${TARGET_LINCLUDES}" ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip LLVM_IAS=1)
 
-make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} LLVM_IAS=1 HOSTCFLAGS="${TARGET_INCLUDES}" HOSTLDFLAGS="${TARGET_LINCLUDES}" O=${OUT_DIR} ${TARGET_KERNEL_MAKE_ENV} NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip LLVM_IAS=1 -j$(nproc --all) |& tee build.log
+make "${BUILD_OPTIONS[@]}" $config
+make "${BUILD_OPTIONS[@]}" menuconfig || true
+make "${BUILD_OPTIONS[@]}" -j$(nproc --all) |& tee build.log
 }
 
 zipping() {

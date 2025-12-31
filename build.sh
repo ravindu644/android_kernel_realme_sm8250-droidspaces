@@ -27,7 +27,7 @@ echo compiling kernel...
 
 BUILD_OPTIONS=(O=${OUT_DIR} ${TARGET_KERNEL_MAKE_ENV} LLVM_IAS=1 HOSTLDFLAGS="${TARGET_LINCLUDES}" ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip LLVM_IAS=1)
 
-make "${BUILD_OPTIONS[@]}" $config
+make "${BUILD_OPTIONS[@]}" $config droidspaces.config
 make "${BUILD_OPTIONS[@]}" menuconfig || true
 make "${BUILD_OPTIONS[@]}" -j$(nproc --all) |& tee build.log
 }
